@@ -45,12 +45,10 @@ def audit_street_type(street_types, street_name):
 def is_street_name(elem):
     return (elem.attrib['k'] == "addr:street")
 
-
 def audit_street(osmfile):
     osm_file = open(osmfile, "r")
     street_types = defaultdict(set)
     for event, elem in ET.iterparse(osm_file, events=("start",)):
-
         if elem.tag == "node" or elem.tag == "way":
             for tag in elem.iter("tag"):
                 if is_street_name(tag):
@@ -59,13 +57,11 @@ def audit_street(osmfile):
     osm_file.close()
     return street_types
 
-fixed_street_names = []
-
 def update_street_name(osmfile):
     streets = audit_street(osmfile)
     for street, ways in streets.items():
         for name in ways:
             if street in mapping:
-                better_name = name.replace(street, mapping[street])
-                print(name, "=>", better_name)
+                new_name = name.replace(street, mapping[street])
+                print(name, "=>", new_name)
     return name

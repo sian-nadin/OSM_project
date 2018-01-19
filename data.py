@@ -10,7 +10,7 @@ import cerberus
 
 import schema
 
-FILENAME = "dublin_ireland.osm"
+FILENAME = "sample.osm"
 
 
 NODES_PATH = "nodes.csv"
