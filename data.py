@@ -10,10 +10,6 @@ import cerberus
 
 import schema
 
-
-from audit import update_street_name
-from eircodes import update_eircode
-
 FILENAME = "dublin_ireland.osm"
 
 
