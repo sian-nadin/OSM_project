@@ -4,9 +4,12 @@ import re
 import pprint
 
 eircode_re = re.compile(r'[A-Za-z]\d{2}\s[A-Za-z\d]{4}')
+
+"""Check if nested tag is for postcode"""
 def is_eircode(elem):
     return (elem.attrib['k'] == "addr:postcode")
 
+"""Make a list of all Eircodes found"""
 def audit_eircode_type(eircodes,value):
     eircodes[value].add(value)
     return eircodes
@@ -32,6 +35,7 @@ mapping = { "D01X2P2": "D01 X2P2",
             "d09 f6x0":"D09 F6X0"
             }
 
+"""Update Eircodes according to the mapping dictionary"""
 def update_eircode(osmfile):
     eircodes = audit_eircode(osmfile)
     for eircode, ways in eircodes.items():

@@ -5,8 +5,6 @@ import pprint
 
 OSMFILE = "dublin_ireland.osm"
 
-# Keep track of unusual street names
-# The value for each of the keys will be a set
 street_type_re = re.compile(r'\b\S+\.?$', re.IGNORECASE)
 
 #A list of values we would expect to see at the end of a street name
@@ -30,10 +28,9 @@ mapping = { "Aveune": "Avenue",
             "square":"Square",
             "heights":"Heights"
             }
-#TODO: remove post code at end of street name?
 
-# Find street names that aren't in the expected list and add to street_types dictionary
-# Add specific street name to the set of values for a given street_type key
+"""Find street names that aren't in the expected list and add to street_types dictionary
+Add specific street name to the set of values for a given street_type key"""
 def audit_street_type(street_types, street_name):
     m = street_type_re.search(street_name)
     if m:
@@ -41,7 +38,7 @@ def audit_street_type(street_types, street_name):
         if street_type not in expected:
             street_types[street_type].add(street_name)
 
-# Find out if nested tag is a street name
+"""Find out if nested tag is a street name"""
 def is_street_name(elem):
     return (elem.attrib['k'] == "addr:street")
 
@@ -57,6 +54,7 @@ def audit_street(osmfile):
     osm_file.close()
     return street_types
 
+"""Update street name according to the mapping dictionary"""
 def update_street_name(osmfile):
     streets = audit_street(osmfile)
     for street, ways in streets.items():
