@@ -14,7 +14,8 @@ Types and quantities of nodes:
  `'tag': 1060747`
  `'way': 269763`
 
-Below is a summary of string structures of the key (“k”) descriptions in the “tag” nodes. 
+Below is a summary of string structures of the key (“k”) descriptions in the “tag” nodes.
+
    |       |All “k” descriptions|
    |-------|:------------------:|
    |lower  |673577|
@@ -38,6 +39,7 @@ Through programmatic auditing, the following problems were identified:
 
 ### Users(contributors)
 Counting unique users in both “nodes” and “ways” nodes and ranking them by the number of appearance:
+
 `sqlite> SELECT t.user, COUNT(*) as num
         FROM (
             SELECT user FROM nodes UNION ALL SELECT user FROM ways
@@ -48,6 +50,7 @@ Counting unique users in both “nodes” and “ways” nodes and ranking them 
         
 ### Amenities
 I retrieved all unique types of amenities by the following query:
+
 `sqlite> SELECT value, COUNT(*) AS num
         FROM nodes_tags
         WHERE nodes_tags.key = 'amenity'
@@ -57,6 +60,7 @@ I retrieved all unique types of amenities by the following query:
         
 ### Religion:
 Ireland is a religious country with a largely Christian population so it'll be interesting to see the ratio of different religions within Dublin.
+
 `sqlite> SELECT nodes_tags.value, COUNT(*) as num
         FROM nodes_tags 
             JOIN (SELECT DISTINCT(id) FROM nodes_tags WHERE value='place_of_worship') t
